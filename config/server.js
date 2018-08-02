@@ -11,7 +11,6 @@ app.use(bodyParser.json())
 
 consign().include('app/routes')
   .then('app/controllers')
-  .then('app/models')
   .into(app)
 
 module.exports = app
