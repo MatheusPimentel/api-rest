@@ -1,4 +1,4 @@
-var mongoose = require('Mongoose')
+var mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost:27017/project_learning')
 var Schema = mongoose.Schema
 
@@ -9,5 +9,5 @@ var userSchema = new Schema({
   senha: String
 })
 
-let User = mongoose.model('user', userSchema)
+let User = mongoose.model('users', userSchema)
 module.exports = User
