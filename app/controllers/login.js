@@ -1,17 +1,16 @@
 let Crypto = require('../Utils/Crypto')
 let User = require('../models/user')
 module.exports.register = function(application, req, res) {
-  var user = new User(req.body)
-  var crypto = new Crypto()
-  let password = crypto.cryptoPassword(user.senha)
+  let user = new User(req.body)
+  let crypto = new Crypto()
+  const password = crypto.cryptoPassword(user.senha)
   user.senha = password
-  // let passwordDecryptd = crypto.decryptPassword(password)
 
   user.save(function(err, userResponse) {
     if(err) {
-      return console.error(err)
+      return res.status(500).send(err)
     }
-    objUser = {
+    const objUser = {
       nome: userResponse.nome,
       email: userResponse.email,
       numero: userResponse.numero,
@@ -22,16 +21,18 @@ module.exports.register = function(application, req, res) {
 }
 
 module.exports.login = function(application, req, res) {
-  User.findOne({'email': req.body.email, 'senha': req.body.senha}, function(err, user) {
+  const email = req.params.email
+  const senha = req.params.senha
+  let crypto = new Crypto()
+  User.findOne({email: email}, function(err, user) {
     if(err) {
-      return console.error(err)
+      return res.status(500).send(err)
     }
-    objUser = {
-      nome: user.nome,
-      email: user.email,
-      numero: user.numero
+    const password = crypto.decryptPassword(user.senha)
+    if (password === senha) {
+      return res.send(user)
     }
-    res.send(objUser)
+    res.status(500).send({message: 'Usuário não encontrado'})
   })
 }
 

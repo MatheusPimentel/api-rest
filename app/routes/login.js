@@ -7,7 +7,7 @@ module.exports = function (application) {
     application.app.controllers.login.register(application, req, res)
   })
 
-  application.post('/login', function (req, res) {
+  application.get('/login/email/:email/senha/:senha', function (req, res) {
     application.app.controllers.login.login(application, req, res)
   })
 }
