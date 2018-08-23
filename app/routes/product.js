@@ -4,7 +4,7 @@ module.exports = function (application) {
     application.app.controllers.product.search(application, req, res)
   })
 
-  application.post(`${mapping}/novo`, function (req, res) {
+  application.post(`${mapping}/new`, function (req, res) {
     application.app.controllers.product.insert(application, req, res)
   })
 }
