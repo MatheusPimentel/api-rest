@@ -1,8 +1,7 @@
-var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/project_learning')
-var Schema = mongoose.Schema
+let mongoose = require('../../config/mongoConnection')
+let Schema = mongoose.Schema
 
-var userSchema = new Schema({
+let userSchema = new Schema({
   nome: {type: String, uppercase: true},
   email: {type: String, unique: true},
   numero: {type: Number},

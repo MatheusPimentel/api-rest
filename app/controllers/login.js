@@ -1,5 +1,5 @@
 let Crypto = require('../Utils/Crypto')
-let User = require('../models/user')
+let User = require('../models/User')
 module.exports.register = function(application, req, res) {
   let user = new User(req.body)
   let crypto = new Crypto()
