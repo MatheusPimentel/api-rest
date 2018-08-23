@@ -10,13 +10,7 @@ module.exports.register = function(application, req, res) {
     if(err) {
       return res.status(500).send(err)
     }
-    const objUser = {
-      nome: userResponse.nome,
-      email: userResponse.email,
-      numero: userResponse.numero,
-      senha: userResponse.senha
-    }
-    res.send(objUser)
+    res.send(userResponse)
   })
 }
 
