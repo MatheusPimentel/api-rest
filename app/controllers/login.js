@@ -1,6 +1,11 @@
+let Crypto = require('../Utils/Crypto')
 let User = require('../models/user')
 module.exports.register = function(application, req, res) {
   var user = new User(req.body)
+  var crypto = new Crypto()
+  let password = crypto.cryptoPassword(user.senha)
+  user.senha = password
+  // let passwordDecryptd = crypto.decryptPassword(password)
 
   user.save(function(err, userResponse) {
     if(err) {
@@ -9,7 +14,8 @@ module.exports.register = function(application, req, res) {
     objUser = {
       nome: userResponse.nome,
       email: userResponse.email,
-      numero: userResponse.numero
+      numero: userResponse.numero,
+      senha: userResponse.senha
     }
     res.send(objUser)
   })
