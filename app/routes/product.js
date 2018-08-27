@@ -7,4 +7,8 @@ module.exports = function (application) {
   application.post(`${mapping}/new`, function (req, res) {
     application.app.controllers.product.insert(application, req, res)
   })
+
+  application.delete(`${mapping}/delete/:_id`, function (req, res) {
+    application.app.controllers.product.delete(application, req, res)
+  })
 }
