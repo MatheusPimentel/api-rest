@@ -8,7 +8,7 @@ module.exports = function (application) {
     application.app.controllers.user.delete(application, req, res)
   })
 
-  application.get(`${mapping}/:_id`, function (req, res) {
+/*  application.get(`${mapping}/:_id`, function (req, res) {
     application.app.controllers.user.find(application, req, res)
-  })
+  }) */
 }
