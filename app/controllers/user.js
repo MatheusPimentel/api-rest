@@ -1,14 +1,27 @@
-module.exports = function (application) {
-  const mapping = '/user'
-  application.put(`${mapping}/alter/:_id`, function (req, res) {
-    application.app.controllers.product.alter(application, req, res)
-  })
+let User = require('../models/User')
+// FAZ A ALTERAÇÃO DE UM USUÁRIO
+module.exports.alter = function(application, req, res) {
+  const reqUser = req.body
+  User.findOne({email: reqUser.email}, function(err, userResponse) {
+    if(err) {
+      return res.status(500).send(err)
+    }
+    if (userResponse) {
+      userResponse = reqUser.nome
+      userResponse = reqUser.numero
 
-  application.delete(`${mapping}/delete/:_id`, function (req, res) {
-    application.app.controllers.product.delete(application, req, res)
+      userResponse.save(function(err, response) {
+        if(err) {
+          return res.status(500).send(err)
+        }
+        return res.send(response)
+      })
+    }
+    res.status(500).send({message: 'Não foi possível alterar o usuário'})
   })
+}
 
-  application.get(`${mapping}/:_id`, function (req, res) {
-    application.app.controllers.product.find(application, req, res)
-  })
+// FAZ A DELEÇÃO DE UM USUÁRIO
+module.exports.delete = function(application, req, res) {
+  
 }

@@ -1,9 +1,9 @@
 let Crypto = require('../Utils/Crypto')
 let User = require('../models/User')
+// REGISTRO DE USUÁRIO
 module.exports.register = function(application, req, res) {
   let user = new User(req.body)
-  let crypto = new Crypto()
-  const password = crypto.cryptoPassword(user.senha)
+  const password = Crypto.cryptoPassword(user.senha)
   user.senha = password
 
   user.save(function(err, userResponse) {
@@ -14,15 +14,15 @@ module.exports.register = function(application, req, res) {
   })
 }
 
+// LOGIN DE UM USUÁRIO
 module.exports.login = function(application, req, res) {
   const email = req.params.email
   const senha = req.params.senha
-  let crypto = new Crypto()
   User.findOne({email: email}, function(err, user) {
     if(err) {
       return res.status(500).send(err)
     }
-    const password = crypto.decryptPassword(user.senha)
+    const password = Crypto.decryptPassword(user.senha)
     if (password === senha) {
       return res.send(user)
     }
@@ -30,6 +30,7 @@ module.exports.login = function(application, req, res) {
   })
 }
 
+// HELLO WORLD
 module.exports.olaMundo = function(application, req, res) {
   let olaMundo = 'ola mundo!'
     res.send({olaMundo})
