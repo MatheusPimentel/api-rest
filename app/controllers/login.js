@@ -16,6 +16,7 @@ module.exports.register = function(application, req, res) {
 
 // LOGIN DE UM USUÁRIO
 module.exports.login = function(application, req, res) {
+  console.log('login')
   const email = req.params.email
   const senha = req.params.senha
   User.findOne({email: email}, function(err, user) {
