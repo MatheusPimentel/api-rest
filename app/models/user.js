@@ -5,7 +5,8 @@ let userSchema = new Schema({
   nome: { type: String, uppercase: true },
   email: { type: String, unique: true },
   numero: { type: Number },
-  senha: { type: String }
+  senha: { type: String },
+  img: { type: String, required: true }
 });
 
 let User = mongoose.model("users", userSchema);

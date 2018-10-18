@@ -1,7 +1,7 @@
-let jwt = require("jsonwebtoken");
-let bcrypt = require("bcryptjs");
-let Crypto = require("../Utils/Crypto");
-let User = require("../models/User");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const Crypto = require("../Utils/Crypto");
+const User = require("../models/User");
 
 //EXPLICAÇÃO MUITO BOA DE COMO USAR O JWT COM NODE
 /**
@@ -9,6 +9,8 @@ let User = require("../models/User");
 
 // REGISTRO DE USUÁRIO
 module.exports.register = function(application, req, res) {
+  console.log(req.body);
+  console.log(req.file);
   let user = new User(req.body);
   const password = Crypto.cryptoPassword(user.senha);
   user.senha = password;
@@ -58,12 +60,6 @@ module.exports.verifyToken = function(application, req, res) {
 
     res.status(200).send(decoded);
   });
-};
-
-// HELLO WORLD
-module.exports.olaMundo = function(application, req, res) {
-  let olaMundo = "ola mundo!";
-  res.send({ olaMundo });
 };
 
 function createToken(user, res) {
